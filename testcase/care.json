@@ -1,0 +1,83 @@
+[
+    {
+        "config": {
+            "name": "testset description",
+            "variables": [],
+            "request": {
+                "base_url": "http://120.27.25.13:8088",
+                "method": "POST",
+                "headers": {
+                    "User-Agent": null,
+                    "Content-Type": "application/x-www-form-urlencoded",
+                    "WepieUserID": "22381323",
+                    "WepieProduct": "wespy",
+                    "WepieVersion": "5.4.3"
+                },
+                "data": {
+                    "wespy_sign": "9jLHp7o6VFtzGXF4P34A8jAOyTo=\n",
+                    "device_id": "imei_99001237547438_uuid_154201119188043663",
+                    "version_code": "3021",
+                    "android_version": "8.1.0",
+                    "ali_sign": "25df06a9486ec3158ceecac52b8d2249e5fc2a20",
+                    "sid": "822ea969e6545283c61d955dfe0f912e",
+                    "market": "official",
+                    "pkg_name": "wespy",
+                    "device_name": "Xiaomi MI 8",
+                    "version_name": "5.4.3",
+                    "is_google_weplay": "0",
+                    "platform_type": "2",
+                    "distinct_id": "3455fc4267bbcf10"
+                }
+
+            }
+        }
+    },
+    {
+        "test": {
+            "name": "/care_api/care：护别人",
+            "request": {
+                "url": "/care_api/care",
+                "data": {
+                    "target_uid": "32422",
+                    "uid": "22381323"
+                }
+            },
+            "validate": [
+                { "eq": ["content.code",200]}
+            ]
+        }
+    },
+    {
+        "test": {
+            "name": "/care_api/care：再次护别人",
+            "request": {
+                "url": "/care_api/care",
+                "data": {
+                    "target_uid": "32422",
+                    "uid": "22381323"
+                }
+            },
+            "validate": [
+                { "eq": ["content.code",200]},
+                { "eq": ["content.result",-1]}
+            ]
+        }
+    },
+    {
+        "test": {
+            "name": "/care_api/care：守护自己",
+            "request": {
+                "url": "/care_api/care",
+               
+                "data": {
+                    "target_uid": "22381323",
+                    "uid": "22381323"
+                }
+            },
+            "validate": [
+                {"eq": ["content.code",500]},
+                {"eq": ["content.result","守护对象不能是自己"]}
+            ]
+        }
+    }
+]
